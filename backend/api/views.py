@@ -4,7 +4,6 @@ from rest_framework.exceptions import APIException
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 
-# from api.tasks import handle_file
 from api.models import File
 from api.serializers import FileSerializer, FileUploadSerializer
 from handler.tasks import get_handler
@@ -35,7 +34,7 @@ class FileUploadViewSet(viewsets.ModelViewSet):
                     )
         except Exception as error:
             raise APIException(str(error))
-        
+
 
 class FileViewSet(viewsets.ModelViewSet):
     serializer_class = FileSerializer
