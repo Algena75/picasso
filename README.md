@@ -1,4 +1,4 @@
-# testwork_picasso
+# Test assignment
 Files uploading and handling API service
 ## Автор:
 Алексей Наумов ( algena75@yandex.ru )
@@ -14,11 +14,11 @@ Files uploading and handling API service
 
 
 ```
-git clone git@github.com:Algena75/testwork_picasso.git
+git clone git@github.com:Algena75/picasso.git
 ```
 
 ```
-cd testwork_picasso
+cd picasso
 ```
 
 Cоздать и активировать виртуальное окружение:
@@ -49,7 +49,7 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 ## Как запустить проект локально:
-Из корня проекта выполнить
+В корне проекта создать файл `.env` с настройками для базы данных, после чего выполнить
 ```
 docker compose -f docker-compose.yml up -d
 ```

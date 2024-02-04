@@ -4,9 +4,10 @@ from rest_framework.exceptions import APIException
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 
-from api.tasks import handle_file
+# from api.tasks import handle_file
 from api.models import File
 from api.serializers import FileSerializer, FileUploadSerializer
+from handler.tasks import get_handler
 
 
 class FileUploadViewSet(viewsets.ModelViewSet):
@@ -20,9 +21,9 @@ class FileUploadViewSet(viewsets.ModelViewSet):
                 serializer = FileUploadSerializer(data=request.data)
                 if serializer.is_valid():
                     file = File.objects.create(**serializer.validated_data)
-                    job_params = {"db_id": file.id}
+                    job_params = {"db_id": file.id, "file_name": file.name}
                     transaction.on_commit(
-                        lambda: handle_file.delay(job_params)
+                        lambda: get_handler.delay(job_params)
                     )
                     return Response(
                         FileSerializer(file).data,
