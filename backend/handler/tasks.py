@@ -52,7 +52,7 @@ def handle_other_file(job_params):
 
 FILE_TYPES = {
     ('jpg', 'gif', 'bmp'): handle_image_file,
-    ('doc','docx', 'txt'): handle_text_file,
+    ('doc', 'docx', 'txt'): handle_text_file,
     ('pdf',): handle_pdf_file,
     ('mkv', 'mp3', 'avi'): handle_media_file
 }
