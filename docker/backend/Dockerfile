@@ -3,7 +3,8 @@ FROM python:3.8.15-alpine
 RUN apk update && apk add python3-dev gcc libc-dev
 
 WORKDIR /app
-
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 RUN pip install --upgrade pip
 #RUN pip install gunicorn
 ADD ./requirements.txt /app/
