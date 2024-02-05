@@ -11,10 +11,12 @@ services:
       - static_volume:/app/backend/django_static
 
   server:
+    tty: true
     restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./docker/backend/Dockerfile
+    image: algena75/picasso-server:latest
+    # build:
+    #   context: .
+    #   dockerfile: ./docker/backend/Dockerfile
     entrypoint: /app/docker/backend/server-entrypoint.sh
     volumes:
       - static_volume:/app/backend/django_static
@@ -28,9 +30,10 @@ services:
 
   worker:
     restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./docker/backend/Dockerfile
+    image: algena75/picasso-server:latest
+    # build:
+    #   context: .
+    #   dockerfile: ./docker/backend/Dockerfile
     entrypoint: /app/docker/backend/worker-entrypoint.sh
     volumes:
       - static_volume:/app/backend/django_static
