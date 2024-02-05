@@ -1,11 +1,10 @@
 import shutil
 import tempfile
 
-from django.test import TestCase, Client
+from api.models import File
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
-from api.models import File
 
 
 class TestApi(TestCase):
@@ -13,19 +12,23 @@ class TestApi(TestCase):
         self.guest_client = Client()
 
     def test_api_endpoint_main(self):
+        """GET-запрос на эндпоинт / разрешён."""
         response = self.guest_client.get("/")
         assert response.status_code == 200
 
     def test_api_endpoint_files(self):
+        """GET-запрос на эндпоинт /files разрешён."""
         response = self.guest_client.get("/files/")
         self.assertEqual(response.status_code, 200)
 
     def test_api_endpoint_upload(self):
+        """GET-запрос на эндпоинт /upload запрещён."""
         response = self.guest_client.get("/upload/")
         self.assertEqual(response.status_code, 405)
 
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
+
 
 @override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
 class FileCreateRecordTests(TestCase):
@@ -43,7 +46,7 @@ class FileCreateRecordTests(TestCase):
         self.guest_client = Client()
 
     def test_create_file(self):
-        """Валидная форма создает запись в File."""
+        """POST-запрос на эндпоинт upload создает запись в File."""
         filess_count = File.objects.count()
         small_gif = (
             b'\x47\x49\x46\x38\x39\x61\x01\x00'
@@ -65,10 +68,9 @@ class FileCreateRecordTests(TestCase):
             data=file_data
         )
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(File.objects.count(), filess_count+1)
+        self.assertEqual(File.objects.count(), filess_count + 1)
         self.assertTrue(
             File.objects.filter(
-                name='small.gif',
-                file='files/small.gif'
-                ).exists()
+                name='small.gif', file='files/small.gif'
+            ).exists()
         )
