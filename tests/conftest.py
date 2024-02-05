@@ -29,4 +29,4 @@ assert any(app in INSTALLED_APPS for app in ['api.apps.ApiConfig', 'api']), (
     'Пожалуйста зарегистрируйте приложение в `settings.INSTALLED_APPS`'
 )
 
-pytest_plugins = []
+pytest_plugins = ["celery.contrib.pytest", ]
