@@ -1,10 +1,10 @@
-# Test assignment
+# API service
 Files uploading and handling API service
 ## Автор:
 Алексей Наумов ( algena75@yandex.ru )
 ## Используемые технолологии:
 * Django
-* SQLite/PostgreSQL
+* PostgreSQL
 * Docker
 * Celery
 * Redis
