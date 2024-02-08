@@ -65,3 +65,5 @@ pip install -r requirements.txt
     celery -A backend worker --loglevel=info --concurrency 1 -E
     ```
     открыть в браузере http://127.0.0.1:8000/
+## Подготовка:
+При запуске файла `python3 backend/handler/services.py` будет создан файл `'files_ext.txt'` со словарём расширений файлов из библиотеки `mimetypes` для дальнейшей возможности изменения словаря `FILES_TYPES`.
