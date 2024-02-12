@@ -5,11 +5,17 @@ if __name__ != '__main__':
     from api.models import File
 
 
-def handle_image_file(job_params: dict) -> None:
-    """Функция обработки графического файла"""
-    file = File.objects.get(pk=job_params["db_id"])
+def change_file_status(pk: int) -> File:
+    """Функция изменяет статус файла на 'Обработан' и возвращает файл."""
+    file = File.objects.get(pk=pk)
     file.processed = True
     file.save()
+    return file
+
+
+def handle_image_file(job_params: dict) -> None:
+    """Функция обработки графического файла"""
+    file = change_file_status(pk=job_params["db_id"])
     logging.info(
         f'File {file.name} was processed as image file.'
     )
@@ -17,9 +23,7 @@ def handle_image_file(job_params: dict) -> None:
 
 def handle_media_file(job_params: dict) -> None:
     """Функция обработки медиа файла"""
-    file = File.objects.get(pk=job_params["db_id"])
-    file.processed = True
-    file.save()
+    file = change_file_status(pk=job_params["db_id"])
     logging.info(
         f'File {file.name} was processed as media file.'
     )
@@ -27,9 +31,7 @@ def handle_media_file(job_params: dict) -> None:
 
 def handle_text_file(job_params: dict) -> None:
     """Функция обработки текстового файла"""
-    file = File.objects.get(pk=job_params["db_id"])
-    file.processed = True
-    file.save()
+    file = change_file_status(pk=job_params["db_id"])
     logging.info(
         f'File {file.name} was processed as text file.'
     )
@@ -37,9 +39,7 @@ def handle_text_file(job_params: dict) -> None:
 
 def handle_pdf_file(job_params: dict) -> None:
     """Функция обработки pdf файла"""
-    file = File.objects.get(pk=job_params["db_id"])
-    file.processed = True
-    file.save()
+    file = change_file_status(pk=job_params["db_id"])
     logging.info(
         f'File {file.name} was processed as pdf file.'
     )
@@ -47,9 +47,7 @@ def handle_pdf_file(job_params: dict) -> None:
 
 def handle_other_file(job_params: dict) -> None:
     """Функция обработки файла, не обработанного ранее."""
-    file = File.objects.get(pk=job_params["db_id"])
-    file.processed = True
-    file.save()
+    file = change_file_status(pk=job_params["db_id"])
     logging.info(
         f'File {file.name} was processed as other file.'
     )
